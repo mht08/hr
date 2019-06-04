@@ -127,8 +127,8 @@
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
 								<div class="col-sm-4 col-sm-offset-8">
-									<a href="<%=path %>/retire/<%=history.getId() %>/toUpdate.do" class="btn btn-primary">修&nbsp;&nbsp;改</a>&nbsp;&nbsp;
-									<a href="<%=path %>/retire/listPage.do?pageNo=1" class="btn btn-info">返&nbsp;&nbsp;回</a>
+									<a href="<%=path %>/history/<%=history.getId() %>/toUpdate.do" class="btn btn-primary">修&nbsp;&nbsp;改</a>&nbsp;&nbsp;
+									<a href="<%=path %>/history/retireListPage.do?pageNo=1" class="btn btn-info">返&nbsp;&nbsp;回</a>
 								</div>
 							</div>
 						</form>

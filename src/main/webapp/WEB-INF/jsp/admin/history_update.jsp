@@ -34,7 +34,7 @@
 					</div>
 					<div class="ibox-content">
 						<% History history = (History)request.getAttribute("history"); %>
-						<form method="post" class="form-horizontal" id="commentForm" action="<%=path %>/retire/<%=history.getId() %>/update.do">
+						<form method="post" class="form-horizontal" id="commentForm" action="<%=path %>/history/<%=history.getId() %>/updateRetire.do">
 							<div class="form-group">
 								<label class="col-sm-3 control-label">工号</label>
 								<div class="col-sm-7">
@@ -137,6 +137,7 @@
 								<div class="col-sm-4 col-sm-offset-8">
 									<button class="btn btn-primary" type="submit">修&nbsp;&nbsp;改</button>&nbsp;&nbsp;&nbsp;&nbsp;
 									<button class="btn btn-white" type="reset">取&nbsp;&nbsp;消</button>
+									<a href="<%=path %>/history/retireListPage.do?pageNo=1" class="btn btn-info">返&nbsp;&nbsp;回</a>
 								</div>
 							</div>
 						</form>
@@ -157,12 +158,21 @@
 
 	<!-- 自定义js -->
 	<script src="<%=path %>/js/content.js?v=1.0.0"></script>
+	
+	<!-- 表单验证 -->
+	<script src="<%=path %>/js/plugins/validate/jquery.validate.min.js"></script>
+	<script src="<%=path %>/js/plugins/validate/messages_zh.min.js"></script>
+	
+	<!-- layer javascript -->
+    <script src="js/plugins/layer/layer.min.js"></script>
+	
 		<script>
 	$().ready(function() {
 	    $("#commentForm").validate();
 	});
 	$.validator.setDefaults({
 	    submitHandler: function() {
+	    	console.log('1111');
 	    	parent.layer.msg('修改成功！',{icon: 1});
 	    	form.submit();
 	    }

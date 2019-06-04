@@ -169,6 +169,7 @@
 								<div class="col-sm-4 col-sm-offset-8">
 									<button class="btn btn-primary" type="submit">修&nbsp;&nbsp;改</button>&nbsp;&nbsp;&nbsp;&nbsp;
 									<button class="btn btn-white" type="reset">取&nbsp;&nbsp;消</button>
+									<a href="<%=path %>/employee/listPage.do?pageNo=1" class="btn btn-info">返&nbsp;&nbsp;回</a>
 								</div>
 							</div>
 						</form>
@@ -202,6 +203,7 @@
 	});
 	$.validator.setDefaults({
 	    submitHandler: function() {
+	    	console.log("11123234afaefae");
 	    	parent.layer.msg('修改成功！',{icon: 1});
 	    	form.submit();
 	    }

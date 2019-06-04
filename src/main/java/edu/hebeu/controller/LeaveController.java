@@ -50,10 +50,12 @@ public class LeaveController {
 	}
 	
 	@RequestMapping("/add.do")
-	public String add(Integer employeeNumber, Leave leave, String start, String end){
+	public String add(HttpSession session,Integer employeeNumber, Leave leave, String start, String end){
+		Employee employee = (Employee)session.getAttribute("loged");
 		leave.setEmployeeNumber(employeeNumber);
 		leave.setStartTime(MTimeUtil.stringParse(start));
 		leave.setEndTime(MTimeUtil.stringParse(end));
+		leave.setDepartmentNumber(employee.getDepartmentNumber());
 		leaveService.insert(leave);
 		return "forward:/employee/welcome.do";
 	}

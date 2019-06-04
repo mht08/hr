@@ -92,7 +92,7 @@
 							<div class="form-group">
 								<div class="col-sm-4 col-sm-offset-8">
 									<a href="<%=path %>/leave/<%=leave.getId() %>/update.do" class="btn btn-primary">批&nbsp;&nbsp;准</a>&nbsp;&nbsp;
-									<a href="<%=path %>/leave/listPage.do?pageNo=1" class="btn btn-info">返&nbsp;&nbsp;回</a>
+									<a href="<%=path %>/leave/notlist.do" class="btn btn-info">返&nbsp;&nbsp;回</a>
 								</div>
 							</div>
 						</form>

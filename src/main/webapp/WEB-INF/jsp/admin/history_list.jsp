@@ -10,7 +10,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>HR医院 - 退休员工列表</title>
+	<title>HR医院 - 离职员工列表</title>
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 
@@ -31,7 +31,7 @@
 			<div class="col-sm-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>退休员工列表</h5>
+						<h5>员工档案列表</h5>
 					</div>
 					<div class="ibox-content">
 						<table class="table table-striped table-bordered table-hover dataTables-example">
