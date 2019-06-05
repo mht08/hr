@@ -19,6 +19,7 @@
 	<context:component-scan base-package="edu.hebeu" />
 
 	<import resource="spring-datasource.xml" />
+	<import resource="spring-redis.xml"/>
 
 	<!-- 用Spring容器来管理sqlSessionFactory，并用MyBatis-Plus替换MyBtis-Spring -->
 	<bean id="sqlSessionFactory"

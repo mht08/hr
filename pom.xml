@@ -160,6 +160,24 @@
 		    <artifactId>commons-codec</artifactId>
 		    <version>1.9</version>
 		</dependency>
+		
+		<!-- redis -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>1.8.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.dreamlu</groupId>
+            <artifactId>Spring-Ueditor</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+		
 	</dependencies>
 <build>
     <plugins>
