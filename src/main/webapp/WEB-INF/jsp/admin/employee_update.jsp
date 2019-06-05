@@ -50,7 +50,13 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">密码</label>
 								<div class="col-sm-7">
-									<input type="password" class="form-control" name="password" value="<%=employee.getPassword() %>" minlength="4" required>
+									<input type="password" class="form-control" placeholder="" id="password"  name="password" value="<%=employee.getPassword() %>" minlength="4" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">确认密码</label>
+								<div class="col-sm-7">
+									<input type="password" class="form-control" placeholder="" value="<%=employee.getPassword() %>" name="password2" equalTo="#password" minlength="4" required>
 								</div>
 							</div>
 							<div class="form-group">

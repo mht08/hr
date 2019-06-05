@@ -22,6 +22,7 @@ import edu.hebeu.mapper.EmployeeMapper;
 import edu.hebeu.mapper.HistoryMapper;
 import edu.hebeu.mapper.PositionMapper;
 import edu.hebeu.service.EmployeeService;
+import edu.hebeu.util.CryptoUtil;
 
 @Service("employeeService")
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> 
@@ -90,6 +91,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
 	public void addEmployee(Employee employee) {
 		//向employee中插入记录
 		employee.setInTime(new Date());
+		employee.setPassword(CryptoUtil.md5(employee.getPassword()));
 		baseMapper.insert(employee);
 		//同时向history中插入记录
 		History history = new History();
@@ -180,5 +182,14 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
 		}
 		page.setRecords(eList);
 		return page;
+	}
+
+	@Override
+	public void resetEmployee(Integer id) {
+		// TODO Auto-generated method stub
+		Employee employee = new Employee();
+		employee.setId(id);
+		employee.setPassword(CryptoUtil.md5("11111111"));
+		baseMapper.updateById(employee);
 	}
 }

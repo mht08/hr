@@ -74,7 +74,9 @@
 									<td><%=intime %></td>
 									<td><a href="<%=path %>/employee/<%=employee.getId() %>/detial.do" class="btn btn-info">查看</a>&nbsp;&nbsp;
 										<a href="<%=path %>/employee/<%=employee.getId() %>/toUpdate.do" class="btn btn-primary">修改</a>&nbsp;&nbsp;
-										<a onclick="del(<%=employee.getId() %>)" class="btn btn-danger delete">删除</a></td>
+										<a onclick="del(<%=employee.getId() %>)" class="btn btn-danger delete">删除</a>
+										<a onclick="res(<%=employee.getId() %>)" class="btn btn-danger delete">重置</a></td>
+										
 								</tr>
 							<%
                             		}
@@ -136,6 +138,15 @@
 		}, function(){
 		    parent.layer.msg('删除成功！', {icon: 1});
 		    location.href="./"+ id +"/delete.do";
+		});
+	}
+	function res(id){
+		parent.layer.confirm('确认重置？', {
+		    btn: ['确认','取消'], //按钮
+		    shade: false //不显示遮罩
+		}, function(){
+		    parent.layer.msg('重置成功！', {icon: 1});
+		    location.href="./"+ id +"/reset.do";
 		});
 	}
 	</script>

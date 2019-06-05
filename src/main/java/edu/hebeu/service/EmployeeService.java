@@ -51,6 +51,12 @@ public interface EmployeeService extends IService<Employee>{
 	void deleteEmployee(Integer id);
 	
 	/**
+	 * 重置密码
+	 * @param id
+	 */
+	void resetEmployee(Integer id);
+	
+	/**
 	 * 根据employeeNumber查询信息
 	 * @param employeeNumber
 	 * @return

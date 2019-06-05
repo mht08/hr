@@ -21,6 +21,7 @@ import edu.hebeu.service.DepartmentService;
 import edu.hebeu.service.EmployeeService;
 import edu.hebeu.service.HistoryService;
 import edu.hebeu.service.PositionService;
+import edu.hebeu.util.CryptoUtil;
 import edu.hebeu.util.MTimeUtil;
 
 @Controller
@@ -43,7 +44,7 @@ public class EmployeeController {
 
 	@RequestMapping("/checkLogin.do")
 	public String checkLogin(HttpSession session, Employee employee) {
-		Employee employee2 = employeeService.checkLogin(employee.getEmployeeNumber(), employee.getPassword());
+		Employee employee2 = employeeService.checkLogin(employee.getEmployeeNumber(), CryptoUtil.md5(employee.getPassword()));
 		if (employee2 != null) {
 			session.setAttribute("loged", employee2);
 			String level = employee2.getPosition().getLevel();
@@ -115,14 +116,32 @@ public class EmployeeController {
 		employee.setId(id);
 		employee.setBirthday(MTimeUtil.stringParse(date));
 		// 得到操作人员的名字
-		Employee employee2 = (Employee) session.getAttribute("loged");
+		 Employee employee2 = (Employee) session.getAttribute("loged");
+		
+		Employee oldEmployee = employeeService.selectEmployee(id);
+		//判断当前的密码与数据库的密码是否冲突
+		if(! employee.getPassword().contentEquals(oldEmployee.getPassword()) ){
+			// 加密密码
+			employee.setPassword(CryptoUtil.md5(employee.getPassword()));
+		}
 		employeeService.updateEmployee(employee, status, employee2.getName());
+		// 判断当前用户是否为修改用户--更新session状态
+		if(oldEmployee.getId().equals(employee2.getId())) {
+			session.setAttribute("loged", employeeService.selectById(employee.getId()));
+		}
 		return "forward:/employee/listPage.do?pageNo=1";
 	}
 
 	@RequestMapping("/{id}/delete.do")
 	public String deleteById(@PathVariable Integer id) {
 		employeeService.deleteEmployee(id);
+		return "forward:/employee/listPage.do?pageNo=1";
+	}
+	
+
+	@RequestMapping("/{id}/reset.do")
+	public String resetById(@PathVariable Integer id) {
+		employeeService.resetEmployee(id);;
 		return "forward:/employee/listPage.do?pageNo=1";
 	}
 
