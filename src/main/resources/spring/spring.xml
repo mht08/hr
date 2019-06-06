@@ -14,9 +14,10 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<aop:aspectj-autoproxy proxy-target-class="true" />
-
 	<context:component-scan base-package="edu.hebeu" />
+
+
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:jdbc.properties,classpath:redis.properties"/>
 
 	<import resource="spring-datasource.xml" />
 	<import resource="spring-redis.xml"/>

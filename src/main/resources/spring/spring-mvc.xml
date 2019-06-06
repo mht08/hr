@@ -19,5 +19,8 @@
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	<!-- AOP代理 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 </beans>
