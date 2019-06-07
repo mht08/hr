@@ -1,11 +1,6 @@
 package edu.hebeu.util;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
-import net.sf.json.util.JSONUtils;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
