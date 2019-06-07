@@ -64,7 +64,7 @@
                             <span class="nav-label">主页</span>
                         </a>
                     </li>
-                   <% Employee employee = (Employee)session.getAttribute("loged"); %>
+                  <% Employee employee = (Employee)request.getAttribute("employee"); %>
 					<li><a href="graph_metrics.html"> 
 							<i class="fa fa fa-newspaper-o"></i> 
 							<span class="nav-label">个人信息</span>

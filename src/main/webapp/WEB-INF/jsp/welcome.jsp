@@ -31,7 +31,7 @@
               <div class="jumbotron">
               	<div style="margin-left: 250px">
                     <p>&nbsp;</p>
-					<%Employee employee = (Employee)session.getAttribute("loged"); %>
+					<% Employee employee = (Employee)request.getAttribute("employee"); %>
 					<h1><%=employee.getName() %></h1>
 					<p>&nbsp;</p>
 					<p>欢迎登录HR医院人事管理系统</p>

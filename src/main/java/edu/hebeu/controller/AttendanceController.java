@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.hebeu.entity.Attendance;
+import edu.hebeu.entity.Employee;
 import edu.hebeu.service.AttendanceService;
+import edu.hebeu.util.ApiCommonUtil;
+import edu.hebeu.util.RedisUtil;
 
 @Controller
 @RequestMapping("/attendance")
@@ -21,13 +24,13 @@ public class AttendanceController {
 	@RequestMapping("/addStart.do")
 	public String addStart(Integer employeeNumber){
 		attendanceService.addStart(employeeNumber);
-		return "welcome";
+		return "forward:/employee/welcome.do";
 	}
 	
 	@RequestMapping("/addEnd.do")
 	public String addEnd(Integer employeeNumber){
 		attendanceService.addEnd(employeeNumber);
-		return "welcome";
+		return "forward:/employee/welcome.do";
 	}
 	
 	@RequestMapping("/list.do")

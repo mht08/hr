@@ -15,7 +15,9 @@ import com.baomidou.mybatisplus.plugins.Page;
 import edu.hebeu.entity.Employee;
 import edu.hebeu.entity.Leave;
 import edu.hebeu.service.LeaveService;
+import edu.hebeu.util.ApiCommonUtil;
 import edu.hebeu.util.MTimeUtil;
+import edu.hebeu.util.RedisUtil;
 
 @Controller
 @RequestMapping("/leave")
@@ -23,35 +25,41 @@ public class LeaveController {
 
 	@Autowired
 	private LeaveService leaveService;
-	
+
+	@Autowired
+	private RedisUtil redisUtil;
+
 	@RequestMapping("/list.do")
-	public String selectList(Model model){
+	public String selectList(Model model) {
 		List<Leave> list = leaveService.selectList();
 		model.addAttribute("list", list);
 		return "admin/leave_list";
 	}
-	
+
 	@RequestMapping("/{id}/detail.do")
-	public String selectLeave(@PathVariable Integer id, Model model){
+	public String selectLeave(@PathVariable Integer id, Model model) {
 		Leave leave = leaveService.selectLeave(id);
 		model.addAttribute("leave", leave);
 		return "admin/leave_detail";
 	}
-	
+
 	@RequestMapping("/{id}/update.do")
-	public String updateStatus(@PathVariable Integer id){
+	public String updateStatus(@PathVariable Integer id) {
 		leaveService.updateStatus(id);
 		return "forward:/leave/notlist.do";
 	}
-	
+
 	@RequestMapping("/toAdd.do")
-	public String toAdd(){
+	public String toAdd(Model model) {
+		Employee employee = ApiCommonUtil.getEmployyee(redisUtil);
+		model.addAttribute("employee", employee);
 		return "admin/leave_add";
 	}
-	
+
 	@RequestMapping("/add.do")
-	public String add(HttpSession session,Integer employeeNumber, Leave leave, String start, String end){
-		Employee employee = (Employee)session.getAttribute("loged");
+	public String add(HttpSession session, Integer employeeNumber, Leave leave,
+			String start, String end) {
+		Employee employee = (Employee) session.getAttribute("loged");
 		leave.setEmployeeNumber(employeeNumber);
 		leave.setStartTime(MTimeUtil.stringParse(start));
 		leave.setEndTime(MTimeUtil.stringParse(end));
@@ -59,29 +67,32 @@ public class LeaveController {
 		leaveService.insert(leave);
 		return "forward:/employee/welcome.do";
 	}
-	
+
 	@RequestMapping("/oneself.do")
-	public String seletByEmployee(HttpSession session, int pageNo, Model model){
-		Employee employee = (Employee)session.getAttribute("loged");
-		Page<Leave> page = leaveService.seletByEmployee(employee.getEmployeeNumber(), pageNo);
+	public String seletByEmployee(HttpSession session, int pageNo, Model model) {
+		Employee employee = ApiCommonUtil.getEmployyee(redisUtil);
+		Page<Leave> page = leaveService.seletByEmployee(
+				employee.getEmployeeNumber(), pageNo);
 		model.addAttribute("page", page);
 		return "admin/oneself_leave";
 	}
-	
+
 	@RequestMapping("/notlist.do")
-	public String selectNotList(Model model, HttpSession session){
-		//获取登录用户的信息
-		Employee employee = (Employee) session.getAttribute("loged");
-		List<Leave> list = leaveService.selectListByStatus(employee.getDepartmentNumber(), "未批准");
+	public String selectNotList(Model model, HttpSession session) {
+		// 获取登录用户的信息
+		Employee employee =ApiCommonUtil.getEmployyee(redisUtil);
+		List<Leave> list = leaveService.selectListByStatus(
+				employee.getDepartmentNumber(), "未批准");
 		model.addAttribute("list", list);
 		return "admin/leave_notlist";
 	}
-	
+
 	@RequestMapping("/yeslist.do")
-	public String selectYesList(Model model, HttpSession session){
-		//获取登录用户的信息
-		Employee employee = (Employee) session.getAttribute("loged");
-		List<Leave> list = leaveService.selectListByStatus(employee.getDepartmentNumber(), "已批准");
+	public String selectYesList(Model model, HttpSession session) {
+		// 获取登录用户的信息
+		Employee employee = ApiCommonUtil.getEmployyee(redisUtil);
+		List<Leave> list = leaveService.selectListByStatus(
+				employee.getDepartmentNumber(), "已批准");
 		model.addAttribute("list", list);
 		return "admin/leave_yeslist";
 	}
