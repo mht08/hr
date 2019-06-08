@@ -285,3 +285,92 @@ CREATE TABLE `rewards_punishment` (
 -- ----------------------------
 -- Records of rewards_punishment
 -- ----------------------------
+
+DROP TABLE IF EXISTS `sys_menu`;
+CREATE TABLE `sys_menu` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `parent_id` int(10) NOT NULL COMMENT '父级编号',
+  `parent_ids` varchar(2000) NOT NULL COMMENT '所有父级编号',
+  `name` varchar(100) NOT NULL COMMENT '名称',
+  `sort` varchar(10) DEFAULT NULL COMMENT '排序',
+  `href` varchar(2000) DEFAULT NULL COMMENT '链接',
+  `href_type` varchar(20) DEFAULT 'other' COMMENT '链接类型',
+  `target` varchar(20) DEFAULT NULL COMMENT '目标',
+  `icon` varchar(100) DEFAULT NULL COMMENT '图标',
+  `is_show` char(1) NOT NULL COMMENT '是否在菜单中显示',
+  `permission` varchar(200) DEFAULT NULL COMMENT '权限标识',
+  `create_by` varchar(64) NOT NULL COMMENT '创建者',
+  `create_date` datetime NOT NULL COMMENT '创建时间',
+  `update_by` varchar(64) NOT NULL COMMENT '更新者',
+  `update_date` datetime NOT NULL COMMENT '更新时间',
+  `remarks` varchar(255) DEFAULT NULL COMMENT '备注信息',
+  `del_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除标记',
+  `home_show` int(1) DEFAULT NULL COMMENT '是否首页显示 0:NO 1:YES ',
+  `Home_icon` varchar(255) DEFAULT NULL COMMENT '关联图片存储表id',
+  `tree_show` int(1) DEFAULT NULL COMMENT '是否树形菜单显示 0:NO 1:YES ',
+  `is_report_putaway` char(1) DEFAULT NULL COMMENT '是否上架',
+  `is_report` char(1) DEFAULT NULL COMMENT '是否报表',
+  `is_share` char(1) DEFAULT NULL COMMENT '是否分享 （1：是；0：不是）',
+  `is_new_iframe` char(1) DEFAULT NULL COMMENT '是否打开新页面 （1：是；0：否）',
+  `is_app_view` char(1) DEFAULT NULL COMMENT '是否AP显示 （1：是；0：否）',
+  `file_path` varchar(128) DEFAULT NULL COMMENT '文件地址',
+  PRIMARY KEY (`id`),
+  KEY `sys_menu_parent_id` (`parent_id`) USING BTREE,
+  KEY `sys_menu_del_flag` (`del_flag`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单表';
+
+
+DROP TABLE IF EXISTS `sys_role`;
+CREATE TABLE `sys_role` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(100) NOT NULL COMMENT '角色名称',
+  `enname` varchar(255) DEFAULT NULL COMMENT '英文名称',
+  `role_type` varchar(255) DEFAULT NULL COMMENT '角色类型',
+  `data_scope` char(1) DEFAULT NULL COMMENT '数据范围',
+  `is_sys` varchar(64) DEFAULT NULL COMMENT '是否系统数据',
+  `useable` varchar(64) DEFAULT NULL COMMENT '是否可用',
+  `create_by` varchar(64) NOT NULL COMMENT '创建者',
+  `create_date` datetime NOT NULL COMMENT '创建时间',
+  `update_by` varchar(64) NOT NULL COMMENT '更新者',
+  `update_date` datetime NOT NULL COMMENT '更新时间',
+  `remarks` varchar(255) DEFAULT NULL COMMENT '备注信息',
+  `del_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`),
+  KEY `sys_role_del_flag` (`del_flag`) USING BTREE,
+  KEY `sys_role_enname` (`enname`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表';
+
+DROP TABLE IF EXISTS `sys_role_menu`;
+CREATE TABLE `sys_role_menu` (
+  `role_id` int(10) NOT NULL COMMENT '角色编号',
+  `menu_id` int(10) NOT NULL COMMENT '菜单编号',
+  PRIMARY KEY (`role_id`,`menu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色-菜单';
+
+DROP TABLE IF EXISTS `sys_employee_menu`;
+CREATE TABLE `sys_employee_menu` (
+  `employee_id` int(10) NOT NULL COMMENT '用户编号',
+  `menu_id` int(10) NOT NULL COMMENT '菜单编号',
+  PRIMARY KEY (`employee_id`,`menu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户-菜单';
+
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `type` char(1) DEFAULT '1' COMMENT '日志类型',
+  `title` varchar(255) DEFAULT '' COMMENT '日志标题',
+  `create_by` varchar(64) DEFAULT NULL COMMENT '创建者',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `remote_addr` varchar(255) DEFAULT NULL COMMENT '操作IP地址',
+  `employee_agent` varchar(255) DEFAULT NULL COMMENT '用户代理',
+  `request_uri` varchar(255) DEFAULT NULL COMMENT '请求URI',
+  `method` varchar(5) DEFAULT NULL COMMENT '操作方式',
+  `params` text COMMENT '操作提交的数据',
+  `exception` text COMMENT '异常信息',
+  `menu_id` int(10) DEFAULT NULL COMMENT '菜单ID',
+  PRIMARY KEY (`id`),
+  KEY `sys_log_create_by` (`create_by`) USING BTREE,
+  KEY `sys_log_request_uri` (`request_uri`) USING BTREE,
+  KEY `sys_log_type` (`type`) USING BTREE,
+  KEY `sys_log_create_date` (`create_date`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志表';
