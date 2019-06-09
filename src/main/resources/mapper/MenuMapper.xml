@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.hebeu.mapper.MenuMapper">
+
+	<!-- 通过<resultMap>映射实体类属性名和表的字段名对应关系 -->
+	<resultMap id="MenuMapping" type="Menu">
+		<!-- id属性来映射主键字段 -->
+		<id column="id" property="id" javaType="Long" />
+		<!-- result属性映射非主键字段 -->
+		<result column="parent_id" property="parentId" javaType="Long" />
+		<result column="parent_ids" property="parentIds" javaType="String" />
+		<result column="name" property="name" javaType="String" />
+		<result column="sort" property="sort" javaType="String" />
+		<result column="href" property="href" javaType="String" />
+		<result column="href_type" property="hrefType" javaType="String" />
+		<result column="target" property="target" javaType="String" />
+		<result column="icon" property="icon" javaType="String" />
+		<result column="is_show" property="isShow" javaType="String" />
+		<result column="permission" property="permission" javaType="String" />
+		<result column="create_by" property="createBy" javaType="String" />
+		<result column="create_date" property="createDate" javaType="Date" />
+		<result column="update_by" property="updateBy" javaType="String" />
+		<result column="update_date" property="updateDate" javaType="Date" />
+		<result column="remarks" property="remarks" javaType="String" />
+		<result column="del_flag" property="delFlag" javaType="String" />
+		<result column="home_show" property="homeShow" javaType="int" />
+		<result column="Home_icon" property="HomeIcon" javaType="String" />
+		<result column="tree_show" property="treeShow" javaType="int" />
+		<result column="is_report_putaway" property="isReportPutaway"
+			javaType="String" />
+		<result column="is_report" property="isReport" javaType="String" />
+		<result column="is_share" property="isShare" javaType="String" />
+		<result column="is_new_iframe" property="isNewIframe" javaType="String" />
+		<result column="is_app_view" property="isAppView" javaType="String" />
+		<result column="file_path" property="filePath" javaType="String" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, parent_id, parent_ids, name, sort, href,
+		href_type,target,icon,is_show,permission,create_by,create_date,update_by,
+		update_date,remarks,del_flag,home_show,Home_icon,tree_show,is_report_putaway,is_report,is_share,is_new_iframe,is_app_view,
+		file_path
+	</sql>
+	<select id="selectMenuAll" resultMap="MenuMapping">
+		select
+		<include refid="Base_Column_List"></include>
+		from sys_menu
+	</select>
+	<select id="selectMenuById" parameterType="Long">
+		select
+		<include refid="Base_Column_List"></include>
+		from sys_menu where id = #{id}
+	</select>
+	<insert id="insertMenu" parameterType="Menu">
+		insert into sys_menu
+		(
+		<include refid="Base_Column_List"></include>
+		)
+		values(
+		#{id}
+		#{parentId}
+		#{parentIds}
+		#{name}
+		#{sort}
+		#{href}
+		#{hrefType}
+		#{target}
+		#{icon}
+		#{isShow}
+		#{permission}
+		#{createBy}
+		#{createDate}
+		#{updateBy}
+		#{updateDate}
+		#{remarks}
+		#{delFlag}
+		#{homeShow}
+		#{HomeIcon}
+		#{treeShow}
+		#{isReportPutaway}
+		#{isReport}
+		#{isShare}
+		#{isNewIframe}
+		#{ isAppView}
+		#{filePath}
+		)
+	</insert>
+	
+</mapper>
