@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+
 import edu.hebeu.entity.Menu;
 import edu.hebeu.mapper.MenuMapper;
 import edu.hebeu.service.MenuService;
 @Service("MenuService")
-public class MenuSeviceImpl implements MenuService {
+public class MenuSeviceImpl  extends ServiceImpl<MenuMapper,Menu> implements MenuService {
 	@Autowired
 	private MenuMapper menuMapper;
 

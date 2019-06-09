@@ -2,9 +2,10 @@ package edu.hebeu.service;
 
 import java.util.List;
 
-import edu.hebeu.entity.Menu;
+import com.baomidou.mybatisplus.service.IService;
 
-public interface MenuService {
+import edu.hebeu.entity.Menu;
+public interface MenuService extends IService<Menu>{
 	/**
 	 * 查询所有
 	 * @return
