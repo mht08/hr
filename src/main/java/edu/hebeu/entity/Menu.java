@@ -1,12 +1,18 @@
 package edu.hebeu.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+
 import edu.hebeu.util.DateUtil;
 
-public class Menu {
+@TableName("sys_menu")
+public class Menu extends Model<Leave> implements Serializable{
+	private static final long serialVersionUID = 4124436894266362736L;
 	private Long id; // '编号',
 	private Long parentId; // '父级编号',
 	private String parentIds; // '所有父级编号',
@@ -212,6 +218,11 @@ public class Menu {
 	}
 	public String getUpdateDateStr() {
 		return DateUtil.formatDate(getUpdateDate(), DateUtil.FMT);
+	}
+	@Override
+	protected Serializable pkVal() {
+		// TODO Auto-generated method stub
+		return this.id;
 	}
 	
 }
