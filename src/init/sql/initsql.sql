@@ -51,3 +51,36 @@ INSERT INTO `sys_role`(`name`, `enname`, `role_type`, `data_scope`, `is_sys`, `u
 INSERT INTO `sys_role`(`name`, `enname`, `role_type`, `data_scope`, `is_sys`, `useable`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`) VALUES ('Test', 'Test', 'assignment', '8', '1', '1', '1', '2019-04-18 16:09:35', '1', '2019-04-18 16:09:35', '', '1');
 INSERT INTO `sys_role`(`name`, `enname`, `role_type`, `data_scope`, `is_sys`, `useable`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`) VALUES ('TAC', 'TAC', 'assignment', '8', '1', '1', '1', '2018-04-18 12:31:34', '1', '2018-04-23 09:36:00', '', '0');
 INSERT INTO `sys_role`(`name`, `enname`, `role_type`, `data_scope`, `is_sys`, `useable`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`) VALUES ('RW-Marketing', 'RW-Marketing', 'assignment', '8', '1', '1', '1', '2017-05-02 19:57:51', '1', '2018-05-31 16:16:24', '荣威销售数据报表查看权限', '0');
+
+
+
+
+
+
+
+INSERT INTO `sys_menu` VALUES ('16', '0', '0,', '个人', '1', '', 'other', null, null, '1', '', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('17', '16', '0,16,', '主页', '1', '/employee/welcome.do', 'other', null, null, '1', 'employee.welcome', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('18', '16', '0,16,', '个人信息', '2', '', 'other', null, null, '1', '', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('19', '18', '0,16,18,', '查看个人信息', '1', 'employee/oneself/detial.do', 'other', null, null, '1', 'employee.oneself.detial', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('20', '18', '0,16,18,', '修改个人信息', '2', '/employee/oneself/toUpdate.do', 'other', null, null, '1', 'employee.oneself.toUpdate', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('21', '18', '0,16,18,', '查看考勤记录', '3', '/attendance/oneself.do', 'other', null, null, '1', 'attendance.oneself', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('22', '18', '0,16,18,', '查看加班信息', '4', '/overtime/oneself.do?pageNo=1', 'other', null, null, '1', 'overtime.oneself', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('23', '18', '0,16,18,', '申请请假', '5', '/leave/toAdd.do', 'other', null, null, '1', 'leave.toAdd', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('24', '18', '0,16,18,', '查看请假记录', '6', '/leave/oneself.do?pageNo=1', 'other', null, null, '1', 'leave.oneself', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('25', '0', '0,', '员工', '2', '', 'other', null, null, '1', '', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('26', '25', '0,25,', '员工管理', '1', '', 'other', null, null, '1', '', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('27', '26', '0,25,26,', '在职员工管理', '1', '/employee/listPage.do?pageNo=1', 'other', null, null, '1', 'employee.listPage', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('28', '26', '0,25,26,', '离休员工管理', '2', '/history/retireListPage.do?pageNo=1', 'other', null, null, '1', 'history.retireListPage', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('29', '26', '0,25,26,', '员工档案管理', '3', '/history/list.do', 'other', null, null, '1', 'history.list', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('30', '26', '0,25,26,', '员工调动记录', '4', '/move/list.do', 'other', null, null, '1', 'move.list', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('31', '25', '0,25,', '考勤管理', '2', '', 'other', null, null, '1', '', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('32', '31', '0,25,31,', '考勤管理', '1', '/attendance/list.do', 'other', null, null, '1', 'attendance.list', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('33', '31', '0,25,31,', '加班管理', '2', '/overtime/listPage.do?pageNo=1', 'other', null, null, '1', 'overtime.listPage', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('34', '25', '0,25,', '请假管理', '3', '', 'other', null, null, '1', '', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('35', '34', '0,25,34,', '未批准列表', '1', '/leave/notlist.do', 'other', null, null, '1', 'leave.notlist', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('36', '34', '0,25,34,', '已批准列表', '2', '/leave/yeslist.do', 'other', null, null, '1', 'leave.yeslist', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('37', '34', '0,25,34,', '请假记录', '2', '/leave/list.do', 'other', null, null, '1', 'leave.list', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('38', '0', '0,', '部门', '3', '', 'other', null, null, '1', '', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('39', '38', '0,38,', '部门管理', '1', '', 'other', null, null, '1', '', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('40', '39', '0,38,39,', '部门管理', '1', '/department/listPage.do?pageNo=1', 'other', null, null, '1', 'department.listPage', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES ('41', '39', '0,38,39,', '职称管理', '2', '/position/listPage.do?pageNo=1', 'other', null, null, '1', 'position.listPage', 'admin', null, null, null, '', '0', '0', null, '0', null, null, null, null, null, null);
