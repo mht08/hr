@@ -8,8 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 
-import edu.hebeu.util.DateUtil;
-
 @TableName("sys_menu")
 public class Menu extends Model<Leave> implements Serializable{
 	private static final long serialVersionUID = 4124436894266362736L;
@@ -39,12 +37,6 @@ public class Menu extends Model<Leave> implements Serializable{
 	private String isNewIframe; // '是否打开新页面 （1：是；0：否）',
 	private String isAppView; // '是否AP显示 （1：是；0：否）',
 	private String filePath; // '文件地址',
-	private String parentIdStr;
-	private String parentIdsStr;
-	@SuppressWarnings("unused")
-	private String createDateStr;
-	@SuppressWarnings("unused")
-	private String updateDateStr;
 	public Long getId() {
 		return id;
 	}
@@ -200,24 +192,6 @@ public class Menu extends Model<Leave> implements Serializable{
 	}
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
-	}
-	public String getParentIdStr() {
-		return parentIdStr;
-	}
-	public void setParentIdStr(String parentIdStr) {
-		this.parentIdStr = parentIdStr;
-	}
-	public String getParentIdsStr() {
-		return parentIdsStr;
-	}
-	public void setParentIdsStr(String parentIdsStr) {
-		this.parentIdsStr = parentIdsStr;
-	}
-	public String getCreateDateStr() {
-		return DateUtil.formatDate(getCreateDate(), DateUtil.FMT);
-	}
-	public String getUpdateDateStr() {
-		return DateUtil.formatDate(getUpdateDate(), DateUtil.FMT);
 	}
 	@Override
 	protected Serializable pkVal() {

@@ -1,6 +1,9 @@
 package edu.hebeu.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 
+import edu.hebeu.common.MessageCode;
+import edu.hebeu.common.ResultObject;
 import edu.hebeu.entity.Department;
 import edu.hebeu.entity.Employee;
 import edu.hebeu.entity.History;
@@ -51,6 +57,66 @@ public class EmployeeController {
 	public String toLogin() {
 		return "login";
 	}
+
+	@RequestMapping("/testTree.do")
+	public String testTree() {
+		return "tree/testTree";
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/treeJson.do")
+	@ResponseBody
+	public ResultObject treeJson() {
+		String json="[{'id':1,'pid':0,'status':1,'name':'用户管理','permissionValue':'open:user:manage'},";
+		json+="{'id':2,'pid':0,'status':1,'name':'系统管理','permissionValue':'open:system:manage'},";
+		json+="{'id':3,'pid':1,'status':1,'name':'新增用户','permissionValue':'open:user:add'},";
+		json+="{'id':4,'pid':1,'status':1,'name':'修改用户','permissionValue':'open:user:edit'},";
+		json+="{'id':5,'pid':1,'status':0,'name':'删除用户','permissionValue':'open:user:del'},";
+		json+="{'id':6,'pid':2,'status':1,'name':'系统配置管理','permissionValue':'open:systemconfig:manage'},";
+		json+="{'id':7,'pid':6,'status':1,'name':'新增配置','permissionValue':'open:systemconfig:add'},";
+		json+="{'id':8,'pid':6,'status':1,'name':'修改配置','permissionValue':'open:systemconfig:edit'},";
+		json+="{'id':9,'pid':6,'status':0,'name':'删除配置','permissionValue':'open:systemconfig:del'},";
+		json+="{'id':10,'pid':2,'status':1,'name':'系统日志管理','permissionValue':'open:log:manage'},";
+		json+="{'id':11,'pid':10,'status':1,'name':'新增日志','permissionValue':'open:log:add'},";
+		json+="{'id':12,'pid':10,'status':1,'name':'修改日志','permissionValue':'open:log:edit'},";
+		json+="{'id':13,'pid':10,'status':0,'name':'删除日志','permissionValue':'open:log:del'}]";
+		
+		List<Map<String,Object>> lsit = new ArrayList<Map<String,Object>>();
+		Map<String,Object> detail = new HashMap<String,Object>();
+		detail.put("id", 1);
+		detail.put("pid", 0);
+		detail.put("status", 1);
+		detail.put("name", "用户管理");
+		detail.put("permissionValue", "open:user:manage");
+//		detail.put("_level","0");
+//		detail.put("check",true);
+		lsit.add(detail);
+		Map<String,Object> detail1 = new HashMap<String,Object>();
+		detail1.put("id", 2);
+		detail1.put("pid", 0);
+		detail1.put("status", 1);
+		detail1.put("name", "系统管理");
+		detail1.put("permissionValue", "open:system:manage");
+//		detail1.put("_level","0");
+//		detail1.put("check",true);
+		lsit.add(detail1);
+		Map<String,Object> detail2 = new HashMap<String,Object>();
+		detail2.put("id", 3);
+		detail2.put("pid", 1);
+		detail2.put("status", 1);
+		detail2.put("name", "新增用户");
+		detail2.put("permissionValue", "open:user:add");
+//		detail.put("_level","1");
+//		detail.put("check",true);
+		lsit.add(detail2);
+		
+		MessageCode code = MessageCode.CODE_SUCCESS;
+		ResultObject resultObject = new ResultObject(code);
+		resultObject.setData(lsit);
+		return resultObject;
+		
+	}
+
 
 	@RequestMapping("/checkLogin.do")
 	public String checkLogin(Employee employee,HttpServletResponse response,Model model) {
