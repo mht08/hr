@@ -294,25 +294,6 @@ public class Util {
         return b.intValue();
     }
 
-    /**
-     * 生成随机数
-     */
-    public static List<Integer> getRandomList(int size, int num) {
-        Map<Integer, Integer> map = new HashMap<>();
-        if (size <= num) {
-            while (map.size() < size) {
-                int i = ((Double) (Math.random() * size)).intValue();
-                map.put(i, i);
-            }
-        } else {
-            while (map.size() < num) {
-                int i = ((Double) (Math.random() * size)).intValue();
-                map.put(i, i);
-            }
-        }
-        return new ArrayList<>(map.keySet());
-    }
-
     public static String string2Unicode(String string) {
         StringBuffer unicode = new StringBuffer();
         for (int i = 0; i < string.length(); i++) {

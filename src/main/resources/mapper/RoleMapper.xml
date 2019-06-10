@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.hebeu.mapper.RoleMapper">
+
+	<!-- 通过<resultMap>映射实体类属性名和表的字段名对应关系 -->
+	<resultMap id="RoleMapping" type="Role">
+		<!-- id属性来映射主键字段 -->
+		<id column="id" property="id" javaType="Long" />
+		<!-- result属性映射非主键字段 -->
+		<result column="name" property="name" javaType="String" />
+		<result column="enname" property="enname" javaType="String" />
+		<result column="role_type" property="roleType" javaType="String" />
+		<result column="data_scope" property="dataScope" javaType="String" />
+		<result column="is_sys" property="isSys" javaType="String" />
+		<result column="useable" property="useable" javaType="String" />
+		<result column="create_by" property="createBy" javaType="String" />
+		<result column="create_date" property="createDate" javaType="Date" />
+		<result column="update_by" property="updateBy" javaType="String" />
+		<result column="update_date" property="updateDate" javaType="Date" />
+		<result column="remarks" property="remarks" javaType="String" />
+		<result column="del_flag" property="delFlag" javaType="String" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,
+		name,
+		enname,
+		role_type,
+		data_scope,
+		is_sys,
+		useable,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks,
+		del_flag
+	</sql>
+	<select id="selectRoleAll" resultMap="RoleMapping">
+		select
+		<include refid="Base_Column_List"></include>
+		from sys_role
+	</select>
+	<select id="selectRoleById" parameterType="Long">
+		select
+		<include refid="Base_Column_List"></include>
+		from sys_role where id = #{id}
+	</select>
+	<insert id="insertRole" parameterType="Role">
+		insert into sys_role
+		(
+		<include refid="Base_Column_List"></include>
+		)
+		values(
+		#{id},
+		#{name},
+		#{enname},
+		#{roleType},
+		#{dataScope},
+		#{isSys},
+		#{useable},
+		#{createBy},
+		now(),
+		#{updateBy},
+		now(),
+		#{remarks},
+		#{delFlag}
+		)
+	</insert>
+	<delete id="delRole" parameterType="Long">
+	    DELETE from sys_role where id=#{id}
+	</delete>
+
+</mapper>

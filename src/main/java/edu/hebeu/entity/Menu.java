@@ -6,7 +6,10 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+
+import edu.hebeu.util.DateUtil;
 
 @TableName("sys_menu")
 public class Menu extends Model<Leave> implements Serializable{
@@ -37,6 +40,16 @@ public class Menu extends Model<Leave> implements Serializable{
 	private String isNewIframe; // '是否打开新页面 （1：是；0：否）',
 	private String isAppView; // '是否AP显示 （1：是；0：否）',
 	private String filePath; // '文件地址',
+	
+	@TableField(exist=false)
+	private String parentIdStr;
+	@TableField(exist=false)
+	private String parentIdsStr;
+	@TableField(exist=false)
+	private String createDateStr;
+	@TableField(exist=false)
+	private String updateDateStr;
+	
 	public Long getId() {
 		return id;
 	}
@@ -197,6 +210,26 @@ public class Menu extends Model<Leave> implements Serializable{
 	protected Serializable pkVal() {
 		// TODO Auto-generated method stub
 		return this.id;
+	}
+	public String getParentIdStr() {
+		return parentIdStr;
+	}
+	public void setParentIdStr(String parentIdStr) {
+		this.parentIdStr = parentIdStr;
+	}
+	public String getParentIdsStr() {
+		return parentIdsStr;
+	}
+	public void setParentIdsStr(String parentIdsStr) {
+		this.parentIdsStr = parentIdsStr;
+	}
+
+	public String getCreateDateStr() {
+		return  getCreateDate() != null ? DateUtil.formatDate(getCreateDate(), DateUtil.FMT) : null;
+	}
+	
+	public String getUpdateDateStr() {
+		return getUpdateDate() != null ? DateUtil.formatDate(getUpdateDate(), DateUtil.FMT) : null;
 	}
 	
 }

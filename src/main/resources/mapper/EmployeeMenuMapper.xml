@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.hebeu.mapper.EmployeeMenuMapper">
+    <resultMap type="EmployeeMenu" id="EmployeeMenuMapping">
+        <result column="employee_id" property="employeeId" javaType="Long"/>
+        <result column="menu_id" property="menuId" javaType="Long"/>
+    </resultMap>
+    <select id="selectEmployeeMenuAll">
+        select * from sys_employee_menu
+    </select>
+    <select id="selectEmployeeMenuById">
+        select * from sys_employee_menu 
+        where employee_id=#{employeeid}
+    </select>
+    <insert id="insertEmployeeMenu">
+        insert into sys_employee_menu(employee_id,menu_id)
+        values(employeeId,menuId)
+    </insert>
+</mapper>

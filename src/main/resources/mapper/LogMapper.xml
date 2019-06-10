@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.hebeu.mapper.LogMapper">
+	<resultMap type="Log" id="LogMapping">
+		<id column="id" property="id" javaType="Long" />
+		<result column="type" property="type" javaType="String" />
+		<result column="title" property="title" javaType="String" />
+		<result column="create_by" property="createBy" javaType="String" />
+		<result column="create_date" property="createDate" javaType="Date" />
+		<result column="remote_addr" property="remoteAddr" javaType="String" />
+		<result column="employee_agent" property="employeeAgent"
+			javaType="String" />
+		<result column="request_uri" property="requestUri" javaType="String" />
+		<result column="method" property="method" javaType="Date" />
+		<result column="params" property="params" javaType="String" />
+		<result column="exception" property="exception" javaType="Date" />
+		<result column="menu_id" property="menuId" javaType="Long" />
+	</resultMap>
+	<sql id="LogSql">
+		id,type,title,create_by,create_date,remote_addr,employee_agent,request_uri,method,params,exception,menu_id
+	</sql>
+	<select id="selectLogById">
+		select
+		<include refid="LogSql"></include>
+		from sys_log where id =#{id}
+	</select>
+	<select id="selectLogAll">
+		select
+		<include refid="LogSql"></include>
+		from sys_log
+	</select>
+	<insert id="insertLog">
+		insert into sys_log(
+		<include refid="LogSql"></include>
+		)
+		values(#{id},#{type},#{title},#{createBy},#{createDate},#{remoteAddr},#{employeeAgent},#{requestUri},#{method},#{params},#{exception},#{menuId})
+	</insert>
+</mapper>

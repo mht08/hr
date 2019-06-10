@@ -143,6 +143,32 @@
 							</li>
 						</ul>
 					</li>
+					<li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+						<span class="ng-scope">角色</span>
+					</li>
+					<li><a href="#">
+							<i class="fa fa-sitemap"></i> 
+							<span class="nav-label">角色管理</span><span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="<%=path %>/role/roleList.do?pageNo=1">角色列表</a>
+							</li>
+							
+						</ul>
+					</li>
+					<li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+						<span class="ng-scope">菜单</span>
+					</li>
+					<li><a href="#">
+							<i class="fa fa-sitemap"></i> 
+							<span class="nav-label">菜单管理</span><span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="<%=path %>/menu/list.do">菜单列表</a>
+							</li>
+							
+						</ul>
+					</li>
 				</ul>
 			</div>
 		</nav>

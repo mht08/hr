@@ -42,6 +42,7 @@
 			error : function(error) {
 			},
 			success : function(result) {
+				console.log(result);
 				initData(result.data);
 			},
 		});
