@@ -3,10 +3,14 @@
 
 //公共配置
 
-
 $(document).ready(function () {
 
-    // MetsiMenu
+});
+
+
+function initClick() {
+	console.log("11");
+	 // MetsiMenu
     $('#side-menu').metisMenu();
 
     // 打开右侧边栏
@@ -74,8 +78,7 @@ $(document).ready(function () {
     if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
         $('#content-main').css('overflow-y', 'auto');
     }
-
-});
+}
 
 $(window).bind("load resize", function () {
     if ($(this).width() < 769) {

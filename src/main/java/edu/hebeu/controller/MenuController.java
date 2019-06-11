@@ -42,14 +42,79 @@ public class MenuController {
 	@ResponseBody
 	public ResultObject toListPage(Model model) {
 		// 从redis中获取菜单列表
+		List<Menu> menuList = getSelfMenuList();
+		MessageCode code = MessageCode.CODE_SUCCESS;
+		ResultObject resultObject = new ResultObject(code);
+		resultObject.setData(menuList);
+		return resultObject;
+	}
+	
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/treeMenu.do")
+	@ResponseBody
+	public ResultObject treeMenu() {
+		// 从redis中获取菜单列表
+		List<Menu> menuList = getSelfMenuList();
+		// 记录顶级菜单
+		List<Menu> topMenu = new ArrayList<Menu>();
+		// 获取所有菜单 Id为KEY，List<Menu>为值
+		Map<Long, List<Menu>> map = new HashMap<Long, List<Menu>>();
+		
+		for (Menu menu : menuList) {
+			// 父节点为0的菜单为
+			if(menu.getParentId() == 0L) {
+				topMenu.add(menu);
+			}
+			if(map.containsKey(menu.getParentId())) {
+				List<Menu> list = map.get(menu.getParentId());
+				list.add(menu);
+				map.put(menu.getParentId(), list);
+			} else {
+				List<Menu> list = new ArrayList<Menu>();
+				list.add(menu);
+				map.put(menu.getParentId(), list);
+			}
+		}
+		// 获取树结构
+		List<Map<String,Object>> returnList = menuTree(map, 0L);
+		
+		MessageCode code = MessageCode.CODE_SUCCESS;
+		ResultObject resultObject = new ResultObject(code);
+		resultObject.setData(returnList);
+		return resultObject;
+	}
+	
+	private List<Map<String,Object>> menuTree(Map<Long, List<Menu>> map,Long parentId) {
+		if(map.containsKey(parentId)) {
+			List<Menu> list = map.get(parentId);
+			List<Map<String,Object>> mapTree = new ArrayList<Map<String,Object>>();
+			for (Menu menu : list) {
+				Map<String,Object> detailMenu = new HashMap<String,Object>();
+				detailMenu.put("id", menu.getId());
+				detailMenu.put("name", menu.getName());
+				detailMenu.put("href", menu.getHref());
+				detailMenu.put("hrefType",menu.getHrefType());
+				List<Map<String,Object>> detail = menuTree(map, menu.getId());
+				detailMenu.put("detail",detail);
+				mapTree.add(detailMenu);
+			}
+			return mapTree;
+		} else {
+			return null;
+		}
+	}
+	
+	
+	private List<Menu> getSelfMenuList() {
 		String string = redisUtil.get("menu"+ApiCommonUtil.getToken());
 		List<Menu> menuList = new ArrayList<Menu>();
 		if (StringUtils.isBlank(string)) {// 不存在数据库中加载
 			try {
 				// 获取所有菜单
+				Map<Long, Menu> map = new HashMap<Long, Menu>();
 				menuList = menuService.selectMenuAll();
 				//以menu id为key,值为menu 绑定关系
-				Map<Long, Menu> map = new HashMap<Long, Menu>();
 				for (Menu menu : menuList) {
 					map.put(menu.getId(), menu);
 				}
@@ -74,7 +139,7 @@ public class MenuController {
 								// 根据节点ID从map中获取菜单对象，获取菜单名称
 								parentIdsStr += map.get(Long.valueOf(string2)).getName();
 							}
-
+	
 						}
 						// 设置所有父级节点名称
 						menu.setParentIdsStr(parentIdsStr);
@@ -88,10 +153,7 @@ public class MenuController {
 		} else {
 			menuList = JsonUtils.jsonToList(string,new TypeReference<List<Menu>>() {});
 		}
-		MessageCode code = MessageCode.CODE_SUCCESS;
-		ResultObject resultObject = new ResultObject(code);
-		resultObject.setData(menuList);
-		return resultObject;
+		return menuList;
 	}
 	
 	@RequestMapping("/{parentId}/addPage.do")

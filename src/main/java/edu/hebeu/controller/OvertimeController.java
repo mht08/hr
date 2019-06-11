@@ -17,7 +17,9 @@ import edu.hebeu.entity.Overtime;
 import edu.hebeu.service.DepartmentService;
 import edu.hebeu.service.EmployeeService;
 import edu.hebeu.service.OvertimeService;
+import edu.hebeu.util.ApiCommonUtil;
 import edu.hebeu.util.MTimeUtil;
+import edu.hebeu.util.RedisUtil;
 
 @Controller
 @RequestMapping("/overtime")
@@ -29,7 +31,10 @@ public class OvertimeController {
 	private EmployeeService employeeService;
 	@Autowired
 	private DepartmentService departmentService;
-
+	@Autowired
+	private RedisUtil redisUtil;
+	
+	
 	@RequestMapping("/listPage.do")
 	public String selectListByPgae(Model model, int pageNo){
 		Page<Overtime> page = overtimeService.selectListByPage(pageNo);
@@ -83,9 +88,9 @@ public class OvertimeController {
 		return "forward:/overtime/listPage.do?pageNo=1";
 	}
 	
-	@RequestMapping("/{employeeNumber}/oneself.do")
-	public String select(Model model, @PathVariable Integer employeeNumber, int pageNo){
-		Page<Overtime> page = overtimeService.selectByEmployee(pageNo, employeeNumber);
+	@RequestMapping("/oneself.do")
+	public String select(Model model, int pageNo){
+		Page<Overtime> page = overtimeService.selectByEmployee(pageNo, ApiCommonUtil.getEmployyee(redisUtil).getEmployeeNumber());
 		model.addAttribute("page",page);
 		return "admin/oneself_overtime";
 	}

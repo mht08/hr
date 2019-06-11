@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="edu.hebeu.entity.*"%>
-<%@ page import="edu.hebeu.entity.format.*"%>
 <%@ page import="edu.hebeu.util.MTimeUtil"%>
 <%
 	String path = request.getContextPath();
@@ -61,9 +60,9 @@
 							</thead>
 							<tbody>
 								<%
-									List<RoleFormat> list = (List<RoleFormat>)request.getAttribute("roleList");
-								                            	int index=1;
-								                            	for(RoleFormat role : list){
+									List<Role> list = (List<Role>)request.getAttribute("roleList");
+	                            	int index=1;
+	                            	for(Role role : list){
 								%>
 								<tr class="gradeA">
 									<td><%=index++%></td>
@@ -84,8 +83,6 @@
 										class="btn btn-primary">修改</a>&nbsp;&nbsp; <a
 										onclick="del(<%=role.getId()%>)"
 										class="btn btn-danger delete">删除</a>&nbsp;&nbsp;</td>
-
-
 								</tr>
 								<%
 									}

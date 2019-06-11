@@ -50,6 +50,17 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-sm-3 control-label">菜单类型</label>
+								<div class="col-sm-7">
+									<select class="form-control m-b" name="hrefType" size="1" required>
+										<option value="1">头标题</option>
+										<option value="2">小标题</option>
+										<option value="3">菜单</option>
+										<option value="4">按钮</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-sm-3 control-label">链接</label>
 								<div class="col-sm-7">
 									<input type="text" class="form-control" placeholder="" name="href">
@@ -61,6 +72,7 @@
 									<input type="text" class="form-control" placeholder="" name="permission">
 								</div>
 							</div>
+							
 							<div class="form-group">
 								<label class="col-sm-3 control-label">权限级别</label>
 								<div class="col-sm-7">

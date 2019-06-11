@@ -128,11 +128,12 @@
 
     }
     // 格式化类型
-    function typeFormatter(value, row, index) {
-        if (value === 'menu') {  return '菜单';  }
-        if (value === 'button') {  return '按钮'; }
-        if (value === 'api') {  return '接口'; }
-        return '-';
+    function hrefTypeFormatter(value, row, index) {
+        if (value === '1') {  return '头标题'; }
+        if (value === '2') {  return '小标题'; }
+        if (value === '3') {  return '菜单'; }
+        if (value === '4') {  return '按钮'; }
+        return '其他';
     }
     // 格式化状态
     function statusFormatter(value, row, index) {
