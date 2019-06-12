@@ -68,7 +68,7 @@
                 { field: 'href',  title: '地址' },
                // {field: 'id', title: '编号', sortable: true, align: 'center'},
                // {field: 'parentId', title: '所属上级'},
-                { field: 'status',  title: '状态', sortable: true,  align: 'center', formatter: 'statusFormatter'  },
+                { field: 'hrefType',  title: '类型', sortable: true,  align: 'center', formatter: 'hrefTypeFormatter'  },
                 { field: 'permission', title: '权限值'  },
                 { field: 'operate', title: '操作', align: 'center', events : operateEvents, formatter: 'operateFormatter' },
             ],
@@ -209,10 +209,26 @@
         window.location.href = "<%=path%>/menu/"+id+"/addPage.do";
     }
     function del(id) {
-        alert("del 方法 , id = " + id);
+    	var ss ="<%=path%>/menu/"+id+"/delete.do";
+    	console.log(ss);
+    	$.ajax({
+    		type : "POST",
+    		url : "<%=path%>/menu/"+id+"/delete.do",
+    		
+    		dataType : "json",
+    		error : function(error) {
+    		},
+    		success : function(result) {
+    			alert(result.message);
+    			window.location.href=window.location.href;
+    		}
+    	});
     }
     function update(id) {
-        alert("update 方法 , id = " + id);
+    	if(id == null) {
+        	id=0;
+        }
+        window.location.href = "<%=path%>/menu/"+id+"/updatePage.do";
     }
 
 

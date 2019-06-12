@@ -2,6 +2,8 @@ package edu.hebeu.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -41,6 +43,14 @@ public interface  MenuMapper extends BaseMapper<Menu>{
 	 * @return
 	 */
 	public int  delMenu(Long id);
+	
+	public int deleteMenuByParentIds(@Param("parentIds") String parentIds,
+			@Param("id") Long id);
+	
+	
+	public List<Menu> getMenuByIds(@Param("ids") String[] ids);
+	
+	public Integer updateById(Menu menu);
 	
 
 }

@@ -6,12 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONObject;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -20,6 +26,7 @@ import edu.hebeu.common.MessageCode;
 import edu.hebeu.common.ResultObject;
 import edu.hebeu.entity.Employee;
 import edu.hebeu.entity.Menu;
+import edu.hebeu.entity.Role;
 import edu.hebeu.service.MenuService;
 import edu.hebeu.util.ApiCommonUtil;
 import edu.hebeu.util.JsonUtils;
@@ -174,9 +181,103 @@ public class MenuController {
 		menu.setParentIds(parentIds + menu.getParentId() + ",");
 		menu.setCreateDate(new Date());
 		menuService.insert(menu);
-		// 删除redis中的缓存
+		// 新增成功后 删除redis中的缓存
 		redisUtil.delete("menu"+ApiCommonUtil.getToken());
 		return "redirect:/menu/list.do";
 	}
+	
+	// 删除火车信息的请求处理
+		@SuppressWarnings("rawtypes")
+		@RequestMapping("/{id}/delete.do")
+		@ResponseBody
+		public ResultObject doDeleteTraininfo(Model model, @PathVariable String id) {
+			int flag = 0;
+			if (null != id && !"".equals(id)) {
+				String[] selectTrainNos = id.split(" ");
+				try {
+					flag = menuService.deletemenuByids(selectTrainNos);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			MessageCode code = MessageCode.CODE_SUCCESS;
+			if (flag > 0) {
+				code = MessageCode.CODE_SUCCESS;
+			} else {
+				code = MessageCode.CODE_EXCEPTION;
+			}
+			// 修改成功后 删除redis中的缓存
+			redisUtil.delete("menu"+ApiCommonUtil.getToken());
+			ResultObject resultObject = new ResultObject(code);
+			return resultObject;
+		}
+		
+		// 修改角色列表信息的请求处理
+		@RequestMapping("/{id}/updatePage.do")
+		public String updaterole(Model model, @PathVariable Integer id) {
+			Menu menu = menuService.selectById(Long.valueOf(id));
+			model.addAttribute("menu", menu);
+			return "menu/update";
+		}
+		
+		// URL 地址{}传参数 必须加@PathVariable注解
+		@RequestMapping(value = "/{id}/updateMenu.do", method = RequestMethod.POST)
+		public String updateUserPage(HttpSession session, Menu menu,@PathVariable Integer id) {
+
+			try {
+				menu.setId(Long.valueOf(id));
+				// 修改人
+				menu.setUpdateBy(ApiCommonUtil.getEmployyee(redisUtil).getName());
+				// 修改时间
+				menu.setUpdateDate(new Date());
+				menuService.updateMenuById(menu);
+				// 修改成功后 删除redis中的缓存
+				redisUtil.delete("menu"+ApiCommonUtil.getToken());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 多了个 冒号，修改、新增、删除 使用 redirect。 
+			// return "forward::/menu/list.do";
+			return "redirect:/menu/list.do";
+		}
+		
+//
+//		@RequestMapping(value = "/{id}/updateMenu.do", method = RequestMethod.POST)
+//		public String updateById(@PathVariable Integer id, Role role) {
+//			role.setId(Long.valueOf(id));
+//			roleService.updateById(role);
+//
+//			return "forward:/role/roleList.do?pageNo=1";
+//		}
+//
+//		
+		
+		
+		
+		
+		// 菜单信息详情的请求处理
+		@RequestMapping(value = "/getMenu.html", produces = { "text/html;charset=UTF-8" })
+		@ResponseBody
+		public Object getTrain(
+				@RequestParam(value = "id", required = false) String id) {
+			
+			String cjson = "";
+			if (null == id || "".equals(id)) {
+				return "nodata";
+			} else {
+				try {
+					Menu train = new Menu();
+					train = menuService.selectMenuById(Long.valueOf(id));
+					JSONObject jo = JSONObject.fromObject(train);
+					cjson = jo.toString();
+				} catch (Exception e) {
+					e.printStackTrace();
+					return "failed";
+				}
+			}
+			return cjson;
+		}
+
 	
 }

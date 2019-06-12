@@ -85,5 +85,47 @@
 		#{filePath}
 		)
 	</insert>
+	<delete id="deleteMenuByParentIds">
+		delete from sys_menu where parent_ids like
+		concat("%",concat(#{parentIds},"%")) or id=#{id}
+	</delete>
+	
+	
+	
+	<select id="getMenuByIds" resultMap="MenuMapping">
+		select * from sys_menu where id in
+		<foreach collection="ids" item="id" index="index" open="("
+			close=")" separator=",">
+			#{id}
+		</foreach>
+		
+	</select>
+	
+		
+		<update id="updateById" parameterType="Menu">
+		UPDATE sys_menu
+		<set>
+			<if test="null != name and '' != name">
+				name = #{name},
+			</if>
+			<if test="null != sort and '' != sort">
+				sort = #{sort},
+			</if>
+			<if test="null != href and '' != href">
+				href=#{href},
+			</if>
+			<if test="null != hrefType and '' != hrefType">
+				href_type=#{hrefType},
+			</if>
+			<if test="null != target and '' != target">
+				target=#{target},
+			</if>
+			<if test="null != permission and '' != permission">
+				permission=#{permission},
+			</if>
+		</set>
+		WHERE id =#{id}
+	</update>
+	
 	
 </mapper>
