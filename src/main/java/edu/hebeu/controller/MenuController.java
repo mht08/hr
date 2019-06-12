@@ -3,12 +3,12 @@ package edu.hebeu.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
-
-import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +26,12 @@ import edu.hebeu.common.MessageCode;
 import edu.hebeu.common.ResultObject;
 import edu.hebeu.entity.Employee;
 import edu.hebeu.entity.Menu;
-import edu.hebeu.entity.Role;
 import edu.hebeu.service.MenuService;
+import edu.hebeu.service.RoleMenuService;
 import edu.hebeu.util.ApiCommonUtil;
 import edu.hebeu.util.JsonUtils;
 import edu.hebeu.util.RedisUtil;
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/menu")
@@ -39,6 +40,9 @@ public class MenuController {
 	private RedisUtil redisUtil;
 	@Autowired
 	private MenuService menuService;
+	
+	@Autowired
+	private RoleMenuService roleMenuService;
 	
 	@RequestMapping("/list.do")
 	public String testTree() {
@@ -89,6 +93,34 @@ public class MenuController {
 		MessageCode code = MessageCode.CODE_SUCCESS;
 		ResultObject resultObject = new ResultObject(code);
 		resultObject.setData(returnList);
+		return resultObject;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/roleMenu.do")
+	@ResponseBody
+	public ResultObject roleMenu(Long roleId) {
+		Set<Long> menuCheckedSet = new HashSet<Long>();
+		if(roleId != null) {
+			List<Long> menuIdList = roleMenuService.getListByRoleId(roleId);
+			menuCheckedSet = new HashSet<Long>(menuIdList);
+		}
+		// 从redis中获取菜单列表
+		List<Menu> menuList = getSelfMenuList();
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>(); 
+		for (Menu menu : menuList) {
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("id", menu.getId());
+			map.put("pId", menu.getParentId());
+			map.put("name", menu.getName());
+			if(menuCheckedSet.contains(menu.getId())) {
+				map.put("checked",true);
+			}
+			list.add(map);
+		}
+		MessageCode code = MessageCode.CODE_SUCCESS;
+		ResultObject resultObject = new ResultObject(code);
+		resultObject.setData(list);
 		return resultObject;
 	}
 	

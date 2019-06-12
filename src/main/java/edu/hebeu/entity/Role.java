@@ -32,6 +32,8 @@ public class Role extends Model<Role> implements Serializable{
 	private String createDateStr;
 	@TableField(exist=false)
 	private String updateDateStr;
+	@TableField(exist=false)
+	private String menuIds;// 角色对应菜单
 	
 	public Long getId() {
 		return id;
@@ -123,4 +125,11 @@ public class Role extends Model<Role> implements Serializable{
 	public String getUpdateDateStr() {
 		return DateUtil.formatDate(getUpdateDate(), DateUtil.FMT);
 	}
+	public String getMenuIds() {
+		return menuIds;
+	}
+	public void setMenuIds(String menuIds) {
+		this.menuIds = menuIds;
+	}
+	
 }

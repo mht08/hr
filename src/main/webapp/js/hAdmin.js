@@ -9,7 +9,6 @@ $(document).ready(function () {
 
 
 function initClick() {
-	console.log("11");
 	 // MetsiMenu
     $('#side-menu').metisMenu();
 

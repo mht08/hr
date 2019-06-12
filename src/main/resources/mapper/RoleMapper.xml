@@ -36,6 +36,20 @@
 		remarks,
 		del_flag
 	</sql>
+	<sql id="insert_Column_List">
+		name,
+		enname,
+		role_type,
+		data_scope,
+		is_sys,
+		useable,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks,
+		del_flag
+	</sql>
 	<select id="selectRoleAll" resultMap="RoleMapping">
 		select
 		<include refid="Base_Column_List"></include>
@@ -46,13 +60,12 @@
 		<include refid="Base_Column_List"></include>
 		from sys_role where id = #{id}
 	</select>
-	<insert id="insertRole" parameterType="Role">
+	<insert id="insertRole" parameterType="Role" useGeneratedKeys="true" keyProperty="id"> 
 		insert into sys_role
 		(
-		<include refid="Base_Column_List"></include>
+		<include refid="insert_Column_List"></include>
 		)
 		values(
-		#{id},
 		#{name},
 		#{enname},
 		#{roleType},

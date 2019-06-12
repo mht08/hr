@@ -40,5 +40,16 @@ public interface RoleMenuMapper extends BaseMapper<RoleMenu>{
 	 * @return
 	 */
 	public int  delRoleMenu(Long id);
+	
+	/**
+	 * 批量插入角色菜单关系
+	 * @param roleMenuList
+	 * @return
+	 */
+	int insertRoleAndMenu(List<RoleMenu> roleMenuList);
+	
+	int  delByRole(Long roleId);
+	
+	List<Long> getListByRoleId(Long roleId);
 
 }

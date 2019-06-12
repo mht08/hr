@@ -2,8 +2,6 @@ package edu.hebeu.controller;
 
 import java.util.List;
 
-import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import edu.hebeu.common.MessageCode;
+import edu.hebeu.common.ResultObject;
 import edu.hebeu.entity.Role;
 import edu.hebeu.service.RoleService;
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/role")
@@ -56,8 +57,7 @@ public class RoleController {
 	// 角色信息详情的请求处理
 	@RequestMapping(value = "getRole.do", produces = { "text/html;charset=UTF-8" })
 	@ResponseBody
-	public Object getRole(
-			@RequestParam(value = "id", required = false) String id) {
+	public Object getRole(@RequestParam(value = "id", required = false) String id) {
 		logger.info("getRole id=" + id);
 		String cjson = "";
 		if (null == id || "".equals(id)) {
@@ -122,8 +122,8 @@ public class RoleController {
 	}
 
 	@RequestMapping("/toAdd.do")
-	public String toAdd(Model model) {
-		
+	public String toAdd(Model model,Long id) {
+		model.addAttribute("id", id);
 		return "role/add";
 	}
 
@@ -132,5 +132,19 @@ public class RoleController {
 		roleService.insertRole(role);
 		return "forward:/role/roleList.do?pageNo=1";
 	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/getById.do")
+	@ResponseBody
+	public ResultObject getById(Long id) {
+		MessageCode code = MessageCode.CODE_SUCCESS;
+		Role role = roleService.selectById(id);
+		
+		ResultObject resultObject = new ResultObject(code);
+		resultObject.setData(role);
+		return resultObject;
+	}
+	
+	
 
 }

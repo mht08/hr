@@ -123,7 +123,7 @@
 	<script src="<%=path %>/js/plugins/validate/messages_zh.min.js"></script>
 	
 	<!-- layer javascript -->
-    <script src="js/plugins/layer/layer.min.js"></script>
+    <script src="<%=path %>/js/plugins/layer/layer.min.js"></script>
     <script>
 	$().ready(function() {
 	    $("#commentForm").validate();
