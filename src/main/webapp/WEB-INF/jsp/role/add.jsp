@@ -165,7 +165,9 @@
 				error : function(error) {
 				},
 				success : function(result) {
+					// 初始化菜单列表
 					$.fn.zTree.init($("#treeDemo"), setting, result.data);
+					// 获取所有菜单选中节点
 					treenodeClick();
 				}
 			});
@@ -200,6 +202,7 @@
 			}
 		});
 		
+		// 获取所有选中节点
 		function treenodeClick() {
 			var treeObj=$.fn.zTree.getZTreeObj("treeDemo");
             var nodes=treeObj.getCheckedNodes(true);
