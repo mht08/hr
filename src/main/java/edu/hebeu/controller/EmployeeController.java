@@ -1,6 +1,8 @@
 package edu.hebeu.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -100,6 +103,17 @@ public class EmployeeController {
 		return "admin/employee_list";
 	}
 
+	
+	@RequestMapping("/list.do")
+	@ResponseBody
+	public Page<Employee> listPage(Model model, int pageNo) {
+		Page<Employee> page = employeeService.selectListByPage(pageNo);
+		
+//		Map<String,Object> returnMap = new HashMap<String,Object>();
+//		returnMap.put(key, value)
+		return page;
+	}
+	
 	@RequestMapping("/{id}/detial.do")
 	public String selectEmployee(@PathVariable Integer id, Model model) {
 		Employee employee = employeeService.selectEmployee(id);

@@ -82,7 +82,10 @@
 										href="<%=path%>/role/toAdd.do?id=<%=role.getId()%>"
 										class="btn btn-primary">修改</a>&nbsp;&nbsp; <a
 										onclick="del(<%=role.getId()%>)"
-										class="btn btn-danger delete">删除</a>&nbsp;&nbsp;</td>
+										class="btn btn-danger delete">删除</a>&nbsp;&nbsp;
+										<a
+										href="<%=path%>/role/assignEmployees.do?id=<%=role.getId()%>"
+										class="btn btn-primary">分配</a></td>
 								</tr>
 								<%
 									}
@@ -94,10 +97,7 @@
 			</div>
 		</div>
 	</div>
-
-
 	<!-- </form> -->
-	</div>
 	<!-- 全局js -->
 	<script src="<%=path%>/js/jquery.min.js?v=2.1.4"></script>
 	<script src="<%=path%>/js/bootstrap.min.js?v=3.3.6"></script>

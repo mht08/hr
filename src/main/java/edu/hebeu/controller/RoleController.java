@@ -126,6 +126,15 @@ public class RoleController {
 		model.addAttribute("id", id);
 		return "role/add";
 	}
+	
+
+	@RequestMapping("/assignEmployees.do")
+	public String assignEmployees(Model model,Long id) {
+		model.addAttribute("id", id);
+		return "role/assignEmployees";
+	}
+	
+	
 
 	@RequestMapping("/add.do")
 	public String add(Role role) {

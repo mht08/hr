@@ -165,7 +165,7 @@
 				error : function(error) {
 				},
 				success : function(result) {
-					// 初始化菜单列表
+					// 初始化菜单列表	
 					$.fn.zTree.init($("#treeDemo"), setting, result.data);
 					// 获取所有菜单选中节点
 					treenodeClick();
